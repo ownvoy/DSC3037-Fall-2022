@@ -16,6 +16,18 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
+from DSC3037.views import Main
+from user.views import Login, Survey, Timetable
+
 urlpatterns = [
     path("admin/", admin.site.urls),
+    path("", Main.as_view()),
+    path("login/", Login.as_view()),
+    # 아래와 같이하면 user/urls.py의 urlpatterns가 실행된다.
+    # ㄴ path("user/", include("user.urls")),
+    # 예를 들어 user/urls.py에 path('login', Login.as_view())가 있으면
+    # http://localhost:8000/user/login으로 접속하면 Login.as_view()가 실행된다.
+    path("survey/", Survey.as_view(), name="survey"),
+    path("timetable/", Timetable.as_view(), name="timetable"),
+
 ]

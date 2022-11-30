@@ -1,0 +1,76 @@
+.gradiant {
+    background: linear-gradient(to left, #43c6ac, #f8ffae);
+}
+
+.perl0 {
+    background: #72D2AD;
+}
+
+.perl {
+    background: #43c6ac;
+}
+
+.perl2 {
+    background: #97DEAD;
+}
+
+.perl22 {
+    background: #d7fada;
+}
+
+.perl3 {
+    background: #9df2e1;
+}
+
+.adobe0 {
+    background: #F8FFAE;
+}
+
+.adobe1 {
+    background: #024554;
+}
+
+.adobe2 {
+    background: #53736A;
+}
+
+.adobe3 {
+    background: #6A8C69;
+}
+
+.adobe4 {
+    background: #A8B545;
+}
+
+.adobe5 {
+    background: #C2C0A6;
+}
+
+.adobe6 {
+    background: #FF5A33;
+}
+
+.adobe7 {
+    background: #146152;
+}
+
+.adobe8 {
+    background: #44803F;
+}
+
+.adobe9 {
+    background: #1b6d85;
+}
+
+.adobe10 {
+    background: #FFEC5C;
+}
+
+
+input {
+    width: 80%;
+    height: 40px;
+    font-size: 14px;
+    border: 0;
+    outline: none;
+}

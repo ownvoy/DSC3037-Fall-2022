@@ -1,0 +1,194 @@
+{% load static %}
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Timetable</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="src/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="perl0 min-h-screen  items-center justify-center">
+    {% for idx in index %}
+        {{ time_dict.idx.0 }}
+        {{ time_dict.idx.1 }}
+    {% endfor %}
+    <div class="relative flex flex-col items-center ">
+        <div class="perl22 m-16 px-8 justify-items-center">
+            <div class=" grid grid-flow-col  justify-items-center grid-cols-6  pt-8 pb-4 text-center  place-items-stretch">
+                <div class="justify-items-center">
+                    <div class="border-t border-r border-gray-400 w-44">asdfa</div>
+                    <div class="border-t border-r  border-gray-400  perl2 h-16 pt-4 pt-4">1 class
+                    </div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">2 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">3 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">4 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">5 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">6 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">7 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">8 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">9 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">10 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">11 class</div>
+                    <div class="border-t border-r border-gray-400  perl2 h-16 pt-4 ">12 class</div>
+                    <div class="border-t border-r border-b border-gray-400  perl2 h-16 pt-4 ">13 class</div>
+                </div>
+                <div>
+                    <div class="border-t border-r border-gray-400 w-44 ">Mon</div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon11"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon12"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon21"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon22"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon31"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon32"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon41"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon42"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon51"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon52"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon61"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon62"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon71"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon72"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon81"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon82"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon91"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon92"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon101"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon102"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon111"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon112"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon121"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon122"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Mon131"></div>
+                    <div class="border-t border-b border-r border-gray-400 h-8" id="Mon132"></div>
+                </div>
+                <div>
+                    <div class="border-t border-r border-gray-400 w-44 ">Tue</div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue11"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue12"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue21"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue22"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue31"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue32"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue41"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue42"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue51"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue52"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue61"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue62"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue71"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue72"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue81"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue82"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue91"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue92"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue101"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue102"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue111"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue112"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue121"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue122"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Tue131"></div>
+                    <div class="border-t border-b border-r border-gray-400 h-8" id="Tue132"></div>
+                </div>
+                <div>
+                    <div class="border-t border-r border-gray-400 w-44 ">Wed</div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed11"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed12"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed21"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed22"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed31"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed32"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed41"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed42"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed51"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed52"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed61"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed62"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed71"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed72"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed81"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed82"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed91"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed92"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed101"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed102"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed111"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed112"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed121"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed122"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Wed131"></div>
+                    <div class="border-t border-b border-r border-gray-400 h-8" id="Wed132"></div>
+                </div>
+                <div>
+                    <div class="border-t border-r border-gray-400 w-44 ">Thu</div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu11"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu12"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu21"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu22"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu31"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu32"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu41"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu42"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu51"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu52"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu61"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu62"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu71"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu72"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu81"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu82"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu91"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu92"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu101"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu102"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu111"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu112"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu121"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu122"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Thu131"></div>
+                    <div class="border-t border-b border-r border-gray-400 h-8" id="Thu132"></div>
+                </div>
+                <div>
+                    <div class="border-t border-r border-gray-400 w-44 ">Fri</div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri11"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri12"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri21"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri22"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri31"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri32"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri41"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri42"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri51"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri52"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri61"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri62"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri71"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri72"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri81"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri82"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri91"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri92"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri101"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri102"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri111"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri112"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri121"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri122"></div>
+                    <div class="border-t border-r border-gray-400 h-8" id="Fri131"></div>
+                    <div class="border-t border-b border-r border-gray-400 h-8" id="Fri132"></div>
+                </div>
+
+            </div>
+        </div>
+        <div class="relative flex  flex-col items-center justify-center overflow-hidden  p-8 ">
+            <div class=" p-3 perl2 font-semibold hover:bg-green-400">Recommend another timetable</div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
