@@ -165,7 +165,14 @@ class Login(APIView):
 
 class Survey(APIView):
     def get(self, request):
+
         login_id = request.session.get("login_id")
+        student_id = request.session.get("student_id")
+        sql = SQL()
+        possible = sql.subject_available(student_id)
+        print(possible)
+        request.session["possible"] = possible
+
         if login_id is None:
             return HttpResponseRedirect("/login/")
         sql = SQL()
@@ -221,20 +228,21 @@ class Survey(APIView):
             day_str,
             ratio,
         )
+        student_id = request.session.get("student_id")
+        student_info = sql.student_info_join(student_id)[0]
+        request.session["student_info"] = student_info
+
         return HttpResponseRedirect("/timetable/")
 
 
 class Timetable(APIView):
     def get(self, request):
-        student_id = request.session.get("student_id")
-        sql = SQL()
-        possible = sql.subject_available(student_id)
-        print(possible)
-        student_info = sql.student_info_join(student_id)[0]
-        print(student_info)
+        possible = request.session.get("possible")
+        student_info = request.session.get("student_info")
+        # print(student_info)
         timetabling = Timetabling(student_info)
         timetable = timetabling.timetable(possible)
-        print(timetable)
+        # print(timetable)
         text_dict = {}
         icampus = []
         for course in timetable:

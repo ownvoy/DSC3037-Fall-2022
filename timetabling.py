@@ -374,7 +374,7 @@ class Timetabling:
                 del_day = self.day_list[num]
                 self.day_list.remove(del_day)
                 self.exceptday.append(del_day)
-        print(self.exceptday)
+        # print(self.exceptday)
         remove_idx = []
         for del_day in self.exceptday:
             for idx, course in enumerate(possible):
@@ -583,8 +583,11 @@ class Timetabling:
                         user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
                         user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
                     self.recommend.append(course)
+                    print(course)
+                    print("여기야?")
                     self.daycounting(course)
                     self.duplicate_remove(course["course_title"], possible)
+                    break
 
     def must_take(self, user_time_map, user_time, possible):
         for course in possible:
@@ -595,8 +598,6 @@ class Timetabling:
                     self.liberal_credit -= int(course["credit"])
                 for time in course["classtime2"]:
                     user_time_map[time] = 0
-                    print(time)
-                    print(course)
                     user_time.remove(time)
                     time_class = re.sub("[^0-9]", "", time)
                     time_day = re.sub("[0-9]", "", time)
@@ -604,6 +605,7 @@ class Timetabling:
                     user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
 
                 self.recommend.append(course)
+                print(course)
                 self.daycounting(course)
                 possible2 = self.duplicate_remove(course["course_title"], possible)
                 return possible2
@@ -858,13 +860,13 @@ class Timetabling:
         random.shuffle(possible)
         if self.course_must != "":
             self.must_take(user_time_map, user_time, possible)
+        if self.instructor != "":
+            self.like_professor(user_time_map, user_time, possible)
         self.school_day(possible)
-        self.like_professor(user_time_map, user_time, possible)
         self.morning(possible)
-        while self.major_credit != 0 or self.liberal_credit != 0:
+        while self.major_credit >= 3 or self.liberal_credit >= 3:
             sorted_time_map = sorted(user_time_map.items(), key=operator.itemgetter(1))
             for time, weight in sorted_time_map:
-                temp = 0
                 if time not in user_time:
                     continue
                 if weight == 0:
@@ -883,7 +885,7 @@ class Timetabling:
                     if temp == 1:
                         continue
                     if course["type_of_field"] == "전공":
-                        if self.major_credit == 0:
+                        if self.major_credit <= 0:
                             continue
                         if int(course["credit"]) < 3:
                             continue
@@ -895,12 +897,14 @@ class Timetabling:
                             user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
                             user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
                         self.recommend.append(course)
+                        print(course)
                         self.daycounting(course)
                         self.duplicate_remove(course["course_title"], possible)
                         self.major_credit -= int(course["credit"])
+                        print("major_credit: ", self.major_credit)
                         break
                     else:
-                        if self.liberal_credit == 0:
+                        if self.liberal_credit <= 0:
                             self.liberal_remove(possible)
                             continue
                         if self.liberal_credit <= 3:
@@ -914,9 +918,12 @@ class Timetabling:
                             user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
                             user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
                         self.recommend.append(course)
+                        print(course)
+                        print("나는 교양")
                         self.daycounting(course)
                         self.duplicate_remove(course["course_title"], possible)
                         self.liberal_credit -= int(course["credit"])
+                        print("liberal_credit: ", self.liberal_credit)
                         break
                 break
 
