@@ -56,21 +56,22 @@ class SQL:
                                                 FROM student_history
                                                             JOIN skku_subject ON student_history.course_id = skku_subject.course_id
                                                             JOIN student_academic ON student_history.student_id = student_academic.student_id
-                                                WHERE student_history.student_id = {student_id}
-                                                        OR skku_subject.type_of_field = '교양'
-                                                        AND (
-                                                                    skku_subject.major = student_academic.major
-                                                                    OR skku_subject.major = student_academic.double_major
-                                                                    OR skku_subject.major = student_academic.triple_major
-                                                            ))
-                                AND skku_subject.semester = "2022학년도 2학기"
-                                AND (
+                                                WHERE student_history.student_id = cast({student_id} as unsigned )
+                                                    OR skku_subject.type_of_field = '교양'
+                                                    AND (
+                                                                skku_subject.major = student_academic.major
+                                                                OR skku_subject.major = student_academic.double_major
+                                                                OR skku_subject.major = student_academic.triple_major
+                                                        ))
+                        GROUP BY course_title, skku_subject.major, skku_subject.semester, skku_subject.course_code
+                        HAVING skku_subject.semester = "2022학년도 2학기"
+                            AND (
                                     skku_subject.major = (SELECT major
-                                                                                FROM student_academic
-                                                                                WHERE student_id = {student_id})
+                                                            FROM student_academic
+                                                            WHERE student_id = cast({student_id} as unsigned ))
                                 OR skku_subject.major = (SELECT double_major
-                                                                                    FROM student_academic
-                                                                                    WHERE student_id = {student_id})
+                                                            FROM student_academic
+                                                            WHERE student_id = cast({student_id} as unsigned ))
                                 OR skku_subject.type_of_field = '교양')"""
             )
             columns = [col[0] for col in cursor.description]
