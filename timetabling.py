@@ -9,9 +9,9 @@ morning = ["Mon11", "Mon12", "Tue11", "Tue12", "Wed11", "Wed12", "Thu11", "Thu12
 
 day_map = {"Mon": "월", "Tue": "화", "Wed": "수", "Thu": "목", "Fri": "금"}
 time_map = {
-    "Mon11": ["월9:00-10:15", "월09:00-09:50"],
-    "Mon12": ["월9:00-10:15", "월09:00-09:50"],
-    "Mon21": ["월9:00-10:15", "월10:00-10:50"],
+    "Mon11": ["월09:00-10:15", "월09:00-09:50"],
+    "Mon12": ["월09:00-10:15", "월09:00-09:50"],
+    "Mon21": ["월09:00-10:15", "월10:00-10:50"],
     "Mon22": ["월10:30-11:45", "월10:00-10:50"],
     "Mon31": ["월10:30-11:45", "월11:00-11:50"],
     "Mon32": ["월10:30-11:45", "월11:00-11:50"],
@@ -590,25 +590,31 @@ class Timetabling:
                     break
 
     def must_take(self, user_time_map, user_time, possible):
-        for course in possible:
-            if self.course_must in course["course_title"]:
-                if course["type_of_field"] == "전공":
-                    self.major_credit -= int(course["credit"])
-                else:
-                    self.liberal_credit -= int(course["credit"])
-                for time in course["classtime2"]:
-                    user_time_map[time] = 0
-                    user_time.remove(time)
-                    time_class = re.sub("[^0-9]", "", time)
-                    time_day = re.sub("[0-9]", "", time)
-                    user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
-                    user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+        must_list = self.course_must.split(sep=",")
+        for must_course in must_list:
+            if must_course[-1] == " ":
+                must_course = must_course.replace(" ", "")
+            if must_course[0] == " ":
+                must_course = must_course.replace(" ", "")
 
-                self.recommend.append(course)
-                print(course)
-                self.daycounting(course)
-                possible2 = self.duplicate_remove(course["course_title"], possible)
-                return possible2
+            for course in possible:
+                if must_course in course["course_title"] or must_course in course["course_code"]:
+                    if course["type_of_field"] == "전공":
+                        self.major_credit -= int(course["credit"])
+                    else:
+                        self.liberal_credit -= int(course["credit"])
+                    for time in course["classtime2"]:
+                        user_time_map[time] = 0
+                        user_time.remove(time)
+                        time_class = re.sub("[^0-9]", "", time)
+                        time_day = re.sub("[0-9]", "", time)
+                        user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
+                        user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+
+                    self.recommend.append(course)
+                    print(course)
+                    self.daycounting(course)
+                    self.duplicate_remove(course["course_title"], possible)
 
     def timetable(self, possible):
         user_time_map = {

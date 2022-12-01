@@ -141,6 +141,7 @@ class Login(APIView):
         request.session["login_id"] = login_id
         login_password = request.POST.get("login_password")
         print(login_id, login_password)
+
         # sql = SQL()
         # result = sql.sign_check(login_id)
         # print(result)
@@ -153,7 +154,13 @@ class Login(APIView):
         #     return render(request, 'login.html', {'error': 'User does not exist'})
         # using ORM
         user = Info.objects.filter(login_id=login_id).first()
-        #
+        print(user)
+        request.session["student_id"] = user.serializable_value("student_id")
+        print(request.session["student_id"])
+        sql = SQL()
+        possible = sql.subject_available(request.session["student_id"])
+        print(possible)
+        request.session["possible"] = possible
         if user is None:
             #     # window pop up message saying that the user does not exist
             return render(request, "login.html", {"message": "User does not exist"})
@@ -168,9 +175,7 @@ class Survey(APIView):
 
         login_id = request.session.get("login_id")
         student_id = request.session.get("student_id")
-        sql = SQL()
-        possible = sql.subject_available(student_id)
-        print(possible)
+        possible = request.session.get("possible")
         request.session["possible"] = possible
 
         if login_id is None:
