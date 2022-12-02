@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>login</title>
+    <title>Survey</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{% static 'css/style.css' %}?after">
@@ -56,7 +56,7 @@
             <p class="text-gray-700 text-xl">How much credit do you want to take?</p>
 
             <select name="credit" class="form-select block w-full focus:bg-white mt-3" id="credit">
-                <option value=15>Default (15)</option>
+                <option value=15>Default(15)</option>
                 <option value=12>12</option>
                 <option value=13>13</option>
                 <option value=14>14</option>
@@ -82,7 +82,9 @@
             <p class="text-gray-700 text-xl">Please write down the subjects you must take.</p>
 
             <input name="course" class="form-input block w-full focus:bg-white mt-3" id="course" type="text" value="">
-            <p class="py-2 text-sm text-gray-600">write the course name</p>
+            <p class="py-2 text-sm text-gray-600">write the course name or course code</p>
+            <p class="py-2 text-sm text-gray-600">If you want multiple courses, please separate them with commas.</p>
+            <p class="text-sm text-gray-600">ex) DSC3037, DSC3033</p>
 
         </div>
         <!--divder-->
@@ -99,7 +101,7 @@
                      width="50%" height="50%">
 
                 <select name="density" class="form-select block w-full focus:bg-white mt-3" id="density">
-                    <option value=1>Default (Left)</option>
+                    <option value=1>Default(Left)</option>
                     <option value=1>Left</option>
                     <option value=0>Right</option>
                 </select>
@@ -117,7 +119,7 @@
                      width="15%" height="15%">
 
                 <select name="morning" class="form-select block w-full focus:bg-white mt-3" id="morning">
-                    <option value=1>Default (Yes)</option>
+                    <option value=1>Default(Yes)</option>
                     <option value=1>Yes</option>
                     <option value=0>No</option>
                 </select>
