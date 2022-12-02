@@ -84,6 +84,7 @@ class Gls:
         sleep(4)
 
         # 대학 선택하기
+        # choose college
         for i in range(number):
             result = []
             major = browser.find_element(
@@ -133,6 +134,7 @@ class Gls:
                             result.append(a)
                             print(a)
                     # 같은 정보 나오면 그만하기
+                    # if information is duplicated, break
                     if duplicated > 4:
                         break
                     # 밑으로 내려가기 (스크롤)
