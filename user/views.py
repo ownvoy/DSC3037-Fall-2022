@@ -1,11 +1,13 @@
 import copy
 
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from rest_framework.views import APIView
 
 from sql import SQL
 from timetabling import Timetabling
+
 from .models import Info
 
 all_time = [
@@ -133,40 +135,37 @@ all_time = [
 
 
 class Login(APIView):
+    # when get started button is clicked, this function is called
     def get(self, request):
         return render(request, "login.html")
 
+    # when sign in button is clicked, this function is called
+    # if user successfully signed in, we will find the course that user can take
+    # Then, redirect to survey page
     def post(self, request):
         login_id = request.POST.get("login_id")
         request.session["login_id"] = login_id
         login_password = request.POST.get("login_password")
         print(login_id, login_password)
 
-        # sql = SQL()
-        # result = sql.sign_check(login_id)
-        # print(result)
-        # if result:
-        #     if result[0]['login_password'] == login_password:
-        #         return HttpResponseRedirect('/survey/')
-        #     else:
-        #         return render(request, 'login.html', {'error': 'Password is wrong'})
-        # else:
-        #     return render(request, 'login.html', {'error': 'User does not exist'})
+        if login_id == "" or login_password == "":
+            messages.error(request, "Please enter your login ID and password")
+            return render(request, "login.html", {"message": "Please enter your ID and password"})
+
         # using ORM
         user = Info.objects.filter(login_id=login_id).first()
+        if user is None:
+            messages.info(request, message="Password or ID is wrong")
+            return render(request, "login.html", {"message": "Password or ID is wrong"})
+        if user.login_password != login_password:
+            messages.info(request, message="Password or ID is wrong")
+            return render(request, "login.html", {"message": "Password or ID is wrong"})
         print(user)
         request.session["student_id"] = user.serializable_value("student_id")
         print(request.session["student_id"])
         sql = SQL()
         possible = sql.subject_available(request.session["student_id"])
-        print(possible)
         request.session["possible"] = possible
-        if user is None:
-            #     # window pop up message saying that the user does not exist
-            return render(request, "login.html", {"message": "User does not exist"})
-        if user.login_password != login_password:
-            return render(request, "login.html", {"message": "Incorrect password or id"})
-        # # make user.student_id JSON serializable
         return HttpResponseRedirect("/survey/")
 
 
@@ -175,13 +174,13 @@ class Survey(APIView):
 
         login_id = request.session.get("login_id")
         student_id = request.session.get("student_id")
+        print(student_id, "asdf")
         possible = request.session.get("possible")
-        request.session["possible"] = possible
 
         if login_id is None:
             return HttpResponseRedirect("/login/")
         sql = SQL()
-        result = sql.sign_check(login_id)
+        result = sql.return_userinfo(login_id)
         request.session["student_id"] = result[0]["student_id"]
         return render(request, "survey.html", {"user": result[0]})
         # using ORM
@@ -189,6 +188,7 @@ class Survey(APIView):
 
         # return render(request, 'survey.html', context={'user': user})
 
+    # We will collect user's information and save it in database
     def post(self, request):
         credit = request.POST.get("credit")
         print(credit)
@@ -241,26 +241,28 @@ class Survey(APIView):
 
 
 class Timetable(APIView):
+    # we will show user's timetable
+    # class_list is the list of html class name
+    # text_list is the list of  courses' name, professor, etc.
     def get(self, request):
         possible = request.session.get("possible")
         student_info = request.session.get("student_info")
-        # print(student_info)
         timetabling = Timetabling(student_info)
         timetable = timetabling.timetable(possible)
-        # print(timetable)
         text_dict = {}
         icampus = []
         for course in timetable:
             if "i-Campus" in course["campus"]:
                 icampus.append(course)
 
-        icam_dict = {}
         icam_text_dict = {}
         for course in icampus:
             icam_text_dict[course["course_title"]] = course["course_title"]
         icam_class_dict = {}
         for idx, course in enumerate(icampus):
-            icam_class_dict[course["course_title"]] = "relative flex w-full px-2 py-1 text-white adobe" + str(idx + 8)
+            icam_class_dict[
+                course["course_title"]
+            ] = "relative flex w-full px-2 py-1 text-white adobe" + str(idx + 8)
 
         icam_text_list = icam_text_dict.values()
         icam_class_list = icam_class_dict.values()
@@ -310,16 +312,31 @@ class Timetable(APIView):
         for idx, course in enumerate(timetable):
             for idx2, t in enumerate(course["classtime2"]):
                 if idx2 == 0:
-                    class_dict[t] = "adobe" + str(
-                        idx + 1) + " " + "h-8" + " " + "font-semibold" + " " + "text-white" + " " + "pt-2 px-1"
+                    class_dict[t] = (
+                        "adobe"
+                        + str(idx + 1)
+                        + " "
+                        + "h-8"
+                        + " "
+                        + "font-semibold"
+                        + " "
+                        + "text-white"
+                        + " "
+                        + "pt-2 px-1"
+                    )
                 else:
-                    class_dict[t] = "adobe" + str(
-                        idx + 1) + " " + "h-8" + " " + "text-white" + " " + "py-2 px-1 pb-2"
+                    class_dict[t] = (
+                        "adobe"
+                        + str(idx + 1)
+                        + " "
+                        + "h-8"
+                        + " "
+                        + "text-white"
+                        + " "
+                        + "py-2 px-1 pb-2"
+                    )
 
         class_list = class_dict.values()
-        # print(all_time)
-        # print(class_list)
-        # print(text_list)
         zipped = zip(all_time, class_list, text_list)
         zipped2 = copy.deepcopy(zipped)
         zipped3 = copy.deepcopy(zipped)
@@ -342,5 +359,6 @@ class Timetable(APIView):
 
     def post(self, request):
         return render(request, "timetable.html")
+
 
 # Create your views here.
