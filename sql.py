@@ -2,12 +2,14 @@ from django.db import connection
 
 
 class SQL:
-    def sign_check(self, login_id):
+    # this function returns user's info when login_id is given
+    def return_userinfo(self, login_id):
         with connection.cursor() as cursor:
             cursor.execute("SELECT * FROM dsc3037.user_info WHERE login_id=%s ", [login_id])
             columns = [col[0] for col in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
+    # this function stores user's info into the db when survey is done
     def insert_survey(self, login_id, credit, course, density, morning, professor, day_list, ratio):
         with connection.cursor() as cursor:
 
@@ -18,7 +20,7 @@ class SQL:
             time = ""
             for day in day_list:
                 time += day
-            # 만약 테이블에 student_id가 존재하면 update, 존재하지 않으면 insert
+            # If there exists student_id update it. If not, insert it.
             cursor.execute(
                 "SELECT * FROM dsc3037.student_mandatory WHERE student_id=%s ", [student_id]
             )
@@ -47,6 +49,9 @@ class SQL:
                 )
             return True
 
+    # this function returns all the courses that student can listen
+    # student only can listen courses that match his/her major, double major
+    # Students can take only subjects that they have not taken before.
     def subject_available(self, student_id):
         with connection.cursor() as cursor:
             cursor.execute(
@@ -77,6 +82,7 @@ class SQL:
             columns = [col[0] for col in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
+    # This function joins all the information about student
     def student_info_join(self, student_id):
         with connection.cursor() as cursor:
             cursor.execute(
