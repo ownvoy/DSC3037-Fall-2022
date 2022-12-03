@@ -128,27 +128,39 @@ class Timetabling:
         self.temp_credit = 0
         self.daycount = {"Mon": 0, "Tue": 0, "Wed": 0, "Thu": 0, "Fri": 0}
 
+    # This function is deciding the day when the student goes to school.
     def school_day(self, possible):
-        for day in self.day_list:
-            if day in self.not_time:
-                self.day_list.remove(day)
-                self.exceptday.append(day)
+        print("not time", self.not_time)
+        print("day_list", self.day_list)
 
+        remove_idx = []
+        for i, day in enumerate(self.day_list):
+            if day in self.not_time:
+                remove_idx.append(i)
+        remove_idx_reverse = sorted(remove_idx, reverse=True)
+        for i in remove_idx_reverse:
+            self.exceptday.append(self.day_list[i])
+            self.day_list.pop(i)
+        print("Possible day: ", self.day_list)
         if self.five_days_a_week == 0:
+            random.shuffle(self.day_list)
             if len(self.day_list) == 5:
-                num = random.randint(0, 4)
-                del_day = self.day_list[num]
-                self.day_list.remove(del_day)
-                self.exceptday.append(del_day)
-                num2 = random.randint(0, 3)
-                del_day2 = self.day_list[num2]
-                self.day_list.remove(del_day2)
-                self.exceptday.append(del_day2)
+                for i in range(2):
+                    for day in self.day_list:
+                        if self.daycount[day] > 0:
+                            continue
+                        else:
+                            self.day_list.remove(day)
+                            self.exceptday.append(day)
+                            break
             elif len(self.day_list) == 4:
-                num = random.randint(0, 3)
-                del_day = self.day_list[num]
-                self.day_list.remove(del_day)
-                self.exceptday.append(del_day)
+                for day in self.day_list:
+                    if self.daycount[day] > 0:
+                        continue
+                    else:
+                        self.day_list.remove(day)
+                        self.exceptday.append(day)
+                        break
         # print(self.exceptday)
         remove_idx = []
         for del_day in self.exceptday:
@@ -163,6 +175,7 @@ class Timetabling:
             del possible[idx]
         return possible
 
+    # If the student doesn't want to go to school in the morning, this function is removing the morning class.
     def morning(self, possible):
         if self.morningclass == 0:
             remove_idx = []
@@ -176,6 +189,7 @@ class Timetabling:
                 del possible[idx]
         return possible
 
+    # This function is removing the duplicate class.
     def duplicate_remove(self, same_course, possible):
         remove_idx = []
         for idx, course in enumerate(possible):
@@ -187,6 +201,7 @@ class Timetabling:
             del possible[idx]
         return possible
 
+    # This function is removing icampus class. But not used in this project.
     def icam_remove(self, possible):
         remove_idx = []
         for idx, course in enumerate(possible):
@@ -198,6 +213,7 @@ class Timetabling:
             del possible[idx]
         return possible
 
+    # This function is removing the liberal arts class.
     def liberal_remove(self, possible):
         remove_idx = []
         for idx, course in enumerate(possible):
@@ -209,6 +225,7 @@ class Timetabling:
             del possible[idx]
         return possible
 
+    # This function is converting the time to timetable format.
     def preprocessing(self, possible):
         for course in possible:
             day = course["classtime"].split(" ,")
@@ -220,6 +237,7 @@ class Timetabling:
             course["classtime2"] = time
         return possible
 
+    # This function set the credit of the class.
     def credit_classify(self):
         self.major_credit = int(self.credit * self.course_ratio)
         while self.major_credit % 3 != 0 and self.major_credit <= self.credit:
@@ -338,6 +356,7 @@ class Timetabling:
         for idx in day_idx:
             self.daycount[day_list[idx]] += 1
 
+    # This function allows students to listen to their favorite professors with a higher probability.
     def like_professor(self, user_time_map, user_time, possible):
         random_int = random.randint(0, 2)
         for course in possible:
@@ -364,6 +383,7 @@ class Timetabling:
                     self.duplicate_remove(course["course_title"], possible)
                     break
 
+    # This function makes students take the subjects they must take.
     def must_take(self, user_time_map, user_time, possible):
         must_list = self.course_must.split(sep=",")
         for must_course in must_list:
