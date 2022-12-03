@@ -93,3 +93,10 @@ The table we used in the project is as follows.
 - `studnet_preference`
 - `student_info`
 - `user_info`
+
+## Contact
+
+If there are any questions or problems, please feel free to contact me.
+
+- ownvoy@g.skku.edu
+- 010-5279-5098
