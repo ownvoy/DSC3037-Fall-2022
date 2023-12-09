@@ -1,7 +1,8 @@
 # Recommend timetable for you
 
 
-https://github.com/ownvoy/DSC3037-Fall-2022/assets/96481582/fa13ca83-dd66-4393-962b-664a268f6126
+
+https://github.com/ownvoy/DSC3037-Fall-2022/assets/96481582/3535b538-06f2-40a1-8d34-e1d655f4edea
 
 We are interested to work on school life. The detailed topic is 'Timetable Recommendation Program'. The target users for this application are all the Sungkyunkwan university students. The optimal timetable is recommended in consideration of personal information such as personal schedule, preferences of professors and lectures, and personal information such as lifestyle (meal time, etc.). At this time, according to the roadmap of the major, it reflects the classes that are good to take in the semester and recommends not to repeat the subjects students have taken before. In addition, this program also offers several alternatives because several plans are made in consideration of failure to register for courses when writing the timetable themselves. In this way, we want to dramatically reduce the time students spend thinking about timetables.
 
