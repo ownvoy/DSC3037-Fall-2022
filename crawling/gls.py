@@ -1,4 +1,5 @@
 import json
+import os
 from time import sleep
 
 from selenium import webdriver
@@ -91,13 +92,16 @@ class Gls:
                 By.XPATH,
                 "/html/body/div/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div[1]/div/div[2]/div/div[1]/div/div/div/div[3]/div/div[3]/div/div/div/div[9]/div/div[1]/input",
             )
+            major.clear()
+            sleep(2)
             major.click()
             sleep(2)
-            if i == 0:
-                pass
-            else:
-                major.send_keys(Keys.DOWN)
-                sleep(2)
+            major.send_keys(majorlist[i])
+            # if i == 0:
+            #     pass
+            # else:
+            #     major.send_keys(Keys.DOWN)
+            sleep(2)
             major.send_keys(Keys.ENTER)
             sleep(5)
             # if i != 10:
@@ -154,7 +158,9 @@ class Gls:
             data["semester"] = semester
             data["college"] = college
             data["course"] = result
-            path = "./data/" + majorlist[i] + "/" + semester + ".json"
+
+            path = "./2024_data2/" + majorlist[i] + "/" + semester + ".json"
+            os.makedirs(os.path.dirname(path), exist_ok=True)
             with open(path, "w", encoding="utf-8") as make_file:
                 json.dump(data, make_file, ensure_ascii=False, indent="\t")
 
@@ -163,21 +169,18 @@ gls = Gls()
 browser = gls.login()
 gls.get_into_major(browser)
 year_list = [
-    "2022학년도 2학기",
-    "2022학년도 1학기",
-    "2021학년도 2학기",
-    "2021학년도 1학기",
-    "2020학년도 2학기",
-    "2020학년도 1학기",
-    "2019학년도 2학기",
-    "2019학년도 1학기",
+    "2024학년도 2학기",
 ]
-
+#
 # for year in year_list:
 #     gls.get_info(
-#         year, "예술대학", ["디자인학과", "연기예술학과", "무용학과", "영상학과", "미술학과", "의상학과"], 6, browser=browser
+#         year,
+#         "예술대학",
+#         ["디자인학과", "연기예술학과", "무용학과", "영상학과", "미술학과", "의상학과"],
+#         6,
+#         browser=browser,
 #     )
-
+#
 
 # for year in year_list:
 #     gls.get_info(
@@ -207,127 +210,145 @@ year_list = [
 #         19,
 #         browser=browser,
 #     )
-
-# for year in year_list:
-#     gls.get_info(year, "경영대학", ["앙트레프레너십연계전공", "경영학과", "글로벌경영학과"], 3, browser=browser)
-
-# for year in year_list:
-#     gls.get_info(year, "의과대학", ["의예과", "의학과"], 2, browser)
-
-# for year in year_list:
-#     gls.get_info(year, "경제대학", ["통계학과", "국제통상학전공", "경제학과", "글로벌경제학과"], 4, browser)
-
-# for year in year_list:
-#     gls.get_info(year, "사범대학", ["한문교육과", "교육학과", "수학교육과", "컴퓨터교육과"], 4, browser)
-
-# sleep(2)
-
-# for year in year_list:
-#     gls.get_info(year, "법과대학", ["법학과"], 1, browser)
-
-# sleep(2)
-
-# for year in year_list:
-#     gls.get_info(year, "자연과학대학", ["물리학과", "화학과", "수학과", "생명과학과"], 4, browser)
-
-# sleep(2)
-
-# for year in year_list:
-#     gls.get_info(year, "스포츠과학대학", ["스포츠과학과"], 1, browser)
-
-# sleep(2)
-
-# for year in year_list:
-#     gls.get_info(year, "약학대학", ["약학부", "약학과"], 2, browser)
-
-# sleep(2)
-
-# for year in year_list:
-#     gls.get_info(year, "유학대학", ["유학-동양학과"], 1, browser)
-
-# sleep(2)
-
-mlist = ["2021학년도 1학기"]
-
-# for year in mlist:
-#     gls.get_info(
-#         year,
-#         "사회과학대학",
-#         [
-#             "정치외교학과",
-#             "미디어커뮤니케이션학과",
-#             "아동-청소년학과",
-#             "법무정책학연계전공",
-#             "심리학과",
-#             "사회학과",
-#             "소비자학과",
-#             "공익과법연계전공",
-#             "사회복지학과",
-#             "글로벌리더학부",
-#             "행정학과",
-#         ],
-#         11,
-#         browser,
-#     )
-# sleep(2)
-
+#
 # for year in year_list:
 #     gls.get_info(
 #         year,
-#         "공과대학",
-#         [
-#             "마이크로시스템기술전공",
-#             "사회환경시스템공학과",
-#             "건축학과",
-#             "시스템경영공학과",
-#             "건설환경공학부",
-#             "텍스타일시스템공학전공",
-#             "화학공학-고분자공학부",
-#             "텍스타일시스템공학과",
-#             "신소재공학부",
-#             "나노공학과",
-#             "기계공학부",
-#             "건축공학과",
-#             "조경학과",
-#             "고분자시스템공학과",
-#             "건축토목공학부",
-#         ],
-#         15,
-#         browser,
+#         "경영대학",
+#         ["앙트레프레너십연계전공", "경영학과", "글로벌경영학과"],
+#         3,
+#         browser=browser,
 #     )
+#
 # sleep(2)
+for year in year_list:
+    gls.get_info(year, "의과대학", ["의예과", "의학과"], 2, browser)
 
-# for year in year_list:
-#     gls.get_info(year, "동아시아학술원", ["한국학전공", "한국학연계전공"], 2, browser)
-# sleep(2)
+sleep(2)
+for year in year_list:
+    gls.get_info(
+        year,
+        "경제대학",
+        ["통계학과", "국제통상학전공", "경제학과", "글로벌경제학과"],
+        4,
+        browser,
+    )
 
-# for year in year_list:
-#     gls.get_info(year, "동아시아학술원", ["한국학전공", "한국학연계전공"], 2, browser)
-# sleep(2)
+sleep(2)
+for year in year_list:
+    gls.get_info(
+        year,
+        "사범대학",
+        ["한문교육과", "교육학과", "수학교육과", "컴퓨터교육과"],
+        4,
+        browser,
+    )
 
-mlist2 = ["2021학년도 2학기", "2021학년도 1학기", "2020학년도 2학기"]
+sleep(2)
 
-mlist3 = ["2020학년도 1학기"]
-# for year in mlist2:
-#     gls.get_info(
-#         year,
-#         "소프트웨어융합대학",
-#         [
-#             "융합소프트웨어전공",
-#             "데이터사이언스융합전공",
-#             "소프트웨어학과",
-#             "융합소프트웨어연계전공-SCSC",
-#             "글로벌융합학부",
-#             "인공지능융합전공",
-#             "컬처앤테크놀로지융합전공",
-#             "컴퓨터공학과",
-#             "인포매틱스융합전공",
-#             "융합소프트웨어연계전공-SW융합",
-#         ],
-#         10,
-#         browser,
-#     )
-# sleep(2)
+for year in year_list:
+    gls.get_info(year, "법과대학", ["법학과"], 1, browser)
+
+sleep(2)
+
+for year in year_list:
+    gls.get_info(
+        year, "자연과학대학", ["물리학과", "화학과", "수학과", "생명과학과"], 4, browser
+    )
+
+sleep(2)
+
+for year in year_list:
+    gls.get_info(year, "스포츠과학대학", ["스포츠과학과"], 1, browser)
+
+sleep(2)
+
+for year in year_list:
+    gls.get_info(year, "약학대학", ["약학부", "약학과"], 2, browser)
+
+sleep(2)
+
+for year in year_list:
+    gls.get_info(year, "유학대학", ["유학-동양학과"], 1, browser)
+
+sleep(2)
+
+
+for year in year_list:
+    gls.get_info(
+        year,
+        "사회과학대학",
+        [
+            "정치외교학과",
+            "미디어커뮤니케이션학과",
+            "아동-청소년학과",
+            "법무정책학연계전공",
+            "심리학과",
+            "사회학과",
+            "소비자학과",
+            "공익과법연계전공",
+            "사회복지학과",
+            "글로벌리더학부",
+            "행정학과",
+        ],
+        11,
+        browser,
+    )
+sleep(2)
+
+for year in year_list:
+    gls.get_info(
+        year,
+        "공과대학",
+        [
+            "마이크로시스템기술전공",
+            "사회환경시스템공학과",
+            "건축학과",
+            "시스템경영공학과",
+            "건설환경공학부",
+            "텍스타일시스템공학전공",
+            "화학공학-고분자공학부",
+            "텍스타일시스템공학과",
+            "신소재공학부",
+            "나노공학과",
+            "기계공학부",
+            "건축공학과",
+            "조경학과",
+            "고분자시스템공학과",
+            "건축토목공학부",
+        ],
+        15,
+        browser,
+    )
+sleep(2)
+
+for year in year_list:
+    gls.get_info(year, "동아시아학술원", ["한국학전공", "한국학연계전공"], 2, browser)
+sleep(2)
+# mlist2 = ["2021학년도 2학기", "2021학년도 1학기", "2020학년도 2학기"]
+#
+# mlist3 = ["2020학년도 1학기"]
+for year in year_list:
+    gls.get_info(
+        year,
+        "소프트웨어융합대학",
+        [
+            "글로벌융합학부",
+            "데이터사이언스융합전공",
+            "소프트웨어학과",
+            "융합소프트웨어연계전공-SCSC",
+            "융합소프트웨어연계전공-SW융합",
+            "융합소프트웨어전공",
+            "인공지능융합전공",
+            "인포매틱스융합전공",
+            "지능형소프트웨어학과",
+            "컬처앤테크놀로지융합전공",
+            "컴퓨터공학과",
+        ],
+        11,
+        browser,
+    )
+sleep(2)
 
 # for year in mlist3:
 #     gls.get_info(
@@ -349,29 +370,49 @@ mlist3 = ["2020학년도 1학기"]
 #     )
 # sleep(2)
 
-# for year in mlist2:
-#     gls.get_info(
-#         year,
-#         "생명공학대학",
-#         ["식품생명공학과", "유전공학과", "생명산업공학전공", "융합생명공학과", "차세대바이오헬스 융합트랙", "바이오메카트로닉스학과"],
-#         6,
-#         browser,
-#     )
-# sleep(2)
+for year in year_list:
+    gls.get_info(
+        year,
+        "생명공학대학",
+        [
+            "식품생명공학과",
+            "유전공학과",
+            "생명산업공학전공",
+            "융합생명공학과",
+            "차세대바이오헬스 융합트랙",
+            "바이오메카트로닉스학과",
+            "컴바이오믹스연계전공",
+        ],
+        7,
+        browser,
+    )
+sleep(2)
 
 # for year in mlist3:
 #     gls.get_info(
 #         year, "생명공학대학", ["식품생명공학과", "유전공학과", "생명산업공학전공", "융합생명공학과", "바이오메카트로닉스학과"], 5, browser
 #     )
 
-# for year in mlist2:
-#     gls.get_info(
-#         year,
-#         "정보통신대학",
-#         ["전자전기컴퓨터공학전공", "소프트웨어학과", "반도체시스템공학과", "소재부품융합공학과", "전자전기공학부", "융합소프트웨어연계전공"],
-#         6,
-#         browser,
-#     )
+for year in year_list:
+    gls.get_info(
+        year,
+        "정보통신대학",
+        [
+            "전자전기컴퓨터공학전공",
+            "반도체소자회로설계및시스템 융합트랙",
+            "반도체소재부품장비패키징 융합트랙",
+            "전자전기컴퓨터공학전공",
+            "차세대반도체공학연계전공",
+            "첨단반도체 융합트랙",
+            "소프트웨어학과",
+            "반도체시스템공학과",
+            "소재부품융합공학과",
+            "전자전기공학부",
+            "융합소프트웨어연계전공",
+        ],
+        11,
+        browser,
+    )
 
 # sleep(2)
 
@@ -395,10 +436,12 @@ mlist3 = ["2020학년도 1학기"]
 
 # mlist5 = ["2020학년도 2학기"]
 # mlist6 = ["2020학년도 1학기", "2019학년도 2학기", "2019학년도 1학기"]
-# for year in mlist4:
-#     gls.get_info(year, "학부대학", ["정보통신계열", "경영학(글로벌)전공", "공학계열"], 3, browser)
+for year in year_list:
+    gls.get_info(
+        year, "학부대학", ["정보통신계열", "경영학(글로벌)전공", "공학계열"], 3, browser
+    )
 
-# sleep(2)
+sleep(2)
 # for year in mlist5:
 #     gls.get_info(
 #         year, "학부대학", ["정보통신계열", "전자전기 컴퓨터공학계열", "경영학(글로벌)전공", "공학계열", "자연과학계열"], 5, browser

@@ -150,7 +150,9 @@ class Login(APIView):
 
         if login_id == "" or login_password == "":
             messages.error(request, "Please enter your login ID and password")
-            return render(request, "login.html", {"message": "Please enter your ID and password"})
+            return render(
+                request, "login.html", {"message": "Please enter your ID and password"}
+            )
 
         # using ORM
         user = Info.objects.filter(login_id=login_id).first()
@@ -260,9 +262,9 @@ class Timetable(APIView):
             icam_text_dict[course["course_title"]] = course["course_title"]
         icam_class_dict = {}
         for idx, course in enumerate(icampus):
-            icam_class_dict[
-                course["course_title"]
-            ] = "relative flex w-full px-2 py-1 text-white adobe" + str(idx + 8)
+            icam_class_dict[course["course_title"]] = (
+                "relative flex w-full px-2 py-1 text-white adobe" + str(idx + 8)
+            )
 
         icam_text_list = icam_text_dict.values()
         icam_class_list = icam_class_dict.values()
@@ -305,7 +307,7 @@ class Timetable(APIView):
         class_dict = {}
 
         for t in all_time:
-            class_dict[t] = "border-t border-r border-gray-400 h-8"
+            class_dict[t] = "border-t border-r border-gray-400 h-8 w-44"
             if "122" in t:
                 class_dict[t] += " border-b"
 
@@ -316,7 +318,7 @@ class Timetable(APIView):
                         "adobe"
                         + str(idx + 1)
                         + " "
-                        + "h-8"
+                        + "w-44"
                         + " "
                         + "font-semibold"
                         + " "
@@ -328,6 +330,8 @@ class Timetable(APIView):
                     class_dict[t] = (
                         "adobe"
                         + str(idx + 1)
+                        + " "
+                        + "w-44"
                         + " "
                         + "h-8"
                         + " "

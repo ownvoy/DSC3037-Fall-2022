@@ -92,6 +92,7 @@ class Gls2:
                 sleep(3)
                 duplicated = 0
                 for h in range(130):
+                    print(h)
                     table = browser.find_elements(
                         By.XPATH,
                         "/html/body/div/div[1]/div/div/div[1]/div/div/div/div/div/div[3]/div/div[1]/div/div[2]/div/div[1]/div/div/div/div[3]/div/div[2]/div[1]/div[2]/div/div/div",
@@ -121,7 +122,7 @@ class Gls2:
         data = {}
         data["semester"] = semester
         data["course"] = result
-        path = "./data/01교양/" + semester + ".json"
+        path = "./2024_data/01교양/" + semester + ".json"
         with open(path, "w", encoding="utf-8") as make_file:
             json.dump(data, make_file, ensure_ascii=False, indent="\t")
 
@@ -147,14 +148,14 @@ subjectmap = {
 codelist = list(subjectmap.values())
 
 year_list = [
-    # "2022학년도 2학기",
+    "2024학년도 2학기",
     # "2022학년도 1학기",
-    "2021학년도 2학기",
-    "2021학년도 1학기",
-    "2020학년도 2학기",
-    "2020학년도 1학기",
-    "2019학년도 2학기",
-    "2019학년도 1학기",
+    # "2021학년도 2학기",
+    # "2021학년도 1학기",
+    # "2020학년도 2학기",
+    # "2020학년도 1학기",
+    # "2019학년도 2학기",
+    # "2019학년도 1학기",
 ]
 print(codelist)
 for year in year_list:

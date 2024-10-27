@@ -5,7 +5,18 @@ from random import randint
 
 random.seed(randint(0, 19999))
 
-morning = ["Mon11", "Mon12", "Tue11", "Tue12", "Wed11", "Wed12", "Thu11", "Thu12", "Fri11", "Fri12"]
+morning = [
+    "Mon11",
+    "Mon12",
+    "Tue11",
+    "Tue12",
+    "Wed11",
+    "Wed12",
+    "Thu11",
+    "Thu12",
+    "Fri11",
+    "Fri12",
+]
 
 day_map = {"Mon": "월", "Tue": "화", "Wed": "수", "Thu": "목", "Fri": "금"}
 time_map3 = {
@@ -374,8 +385,12 @@ class Timetabling:
                         time_day = re.sub(r"[0-9]", "", time)
                         user_time_map[time] = 0
                         user_time.remove(time)
-                        user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
-                        user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+                        user_time_map = self.adjust_weight2(
+                            user_time_map, time_day, time_class
+                        )
+                        user_time_map = self.adjust_weight(
+                            user_time_map, time_day, time_class
+                        )
                     self.recommend.append(course)
                     print(course)
                     print("여기야?")
@@ -393,7 +408,10 @@ class Timetabling:
                 must_course = must_course.replace(" ", "")
 
             for course in possible:
-                if must_course in course["course_title"] or must_course in course["course_code"]:
+                if (
+                    must_course in course["course_title"]
+                    or must_course in course["course_code"]
+                ):
                     if course["type_of_field"] == "전공":
                         self.major_credit -= int(course["credit"])
                     else:
@@ -403,8 +421,12 @@ class Timetabling:
                         user_time.remove(time)
                         time_class = re.sub("[^0-9]", "", time)
                         time_day = re.sub("[0-9]", "", time)
-                        user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
-                        user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+                        user_time_map = self.adjust_weight2(
+                            user_time_map, time_day, time_class
+                        )
+                        user_time_map = self.adjust_weight(
+                            user_time_map, time_day, time_class
+                        )
 
                     self.recommend.append(course)
                     print(course)
@@ -695,8 +717,12 @@ class Timetabling:
                             time_day = re.sub(r"[0-9]", "", time)
                             user_time_map[time] = 0
                             user_time.remove(time)
-                            user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
-                            user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+                            user_time_map = self.adjust_weight2(
+                                user_time_map, time_day, time_class
+                            )
+                            user_time_map = self.adjust_weight(
+                                user_time_map, time_day, time_class
+                            )
                         self.recommend.append(course)
                         print(course)
                         self.daycounting(course)
@@ -716,11 +742,14 @@ class Timetabling:
                             time_day = re.sub(r"[0-9]", "", time)
                             user_time_map[time] = 0
                             user_time.remove(time)
-                            user_time_map = self.adjust_weight2(user_time_map, time_day, time_class)
-                            user_time_map = self.adjust_weight(user_time_map, time_day, time_class)
+                            user_time_map = self.adjust_weight2(
+                                user_time_map, time_day, time_class
+                            )
+                            user_time_map = self.adjust_weight(
+                                user_time_map, time_day, time_class
+                            )
                         self.recommend.append(course)
                         print(course)
-                        print("나는 교양")
                         self.daycounting(course)
                         self.duplicate_remove(course["course_title"], possible)
                         self.liberal_credit -= int(course["credit"])
