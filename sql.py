@@ -5,16 +5,21 @@ class SQL:
     # this function returns user's info when login_id is given
     def return_userinfo(self, login_id):
         with connection.cursor() as cursor:
-            cursor.execute("SELECT * FROM dsc3037.user_info WHERE login_id=%s ", [login_id])
+            cursor.execute(
+                "SELECT * FROM swe3002.user_info WHERE login_id=%s ", [login_id]
+            )
             columns = [col[0] for col in cursor.description]
             return [dict(zip(columns, row)) for row in cursor.fetchall()]
 
     # this function stores user's info into the db when survey is done
-    def insert_survey(self, login_id, credit, course, density, morning, professor, day_list, ratio):
+    def insert_survey(
+        self, login_id, credit, course, density, morning, professor, day_list, ratio
+    ):
         with connection.cursor() as cursor:
 
             cursor.execute(
-                "SELECT student_id FROM dsc3037.user_info WHERE login_id=%s ", [login_id]
+                "SELECT student_id FROM swe3002.user_info WHERE login_id=%s ",
+                [login_id],
             )
             student_id = cursor.fetchone()
             time = ""
@@ -22,29 +27,31 @@ class SQL:
                 time += day
             # If there exists student_id update it. If not, insert it.
             cursor.execute(
-                "SELECT * FROM dsc3037.student_mandatory WHERE student_id=%s ", [student_id]
+                "SELECT * FROM swe3002.student_mandatory WHERE student_id=%s ",
+                [student_id],
             )
             if cursor.fetchone():
                 cursor.execute(
-                    "UPDATE dsc3037.student_mandatory SET course=%s, credit=%s, time=%s, five_days_a_week=%s WHERE student_id=%s ",
+                    "UPDATE swe3002.student_mandatory SET course=%s, credit=%s, time=%s, five_days_a_week=%s WHERE student_id=%s ",
                     [course, credit, time, density, student_id],
                 )
             else:
                 cursor.execute(
-                    "INSERT INTO dsc3037.student_mandatory (student_id, course, credit, time, five_days_a_week) VALUES (%s, %s, %s, %s, %s) ",
+                    "INSERT INTO swe3002.student_mandatory (student_id, course, credit, time, five_days_a_week) VALUES (%s, %s, %s, %s, %s) ",
                     [student_id, course, credit, time, density],
                 )
             cursor.execute(
-                "SELECT * FROM dsc3037.student_preference WHERE student_id=%s ", [student_id]
+                "SELECT * FROM swe3002.student_preference WHERE student_id=%s ",
+                [student_id],
             )
             if cursor.fetchone():
                 cursor.execute(
-                    "UPDATE dsc3037.student_preference SET instructor=%s, morningclass=%s, courseRatio=%s WHERE student_id=%s ",
+                    "UPDATE swe3002.student_preference SET instructor=%s, morningclass=%s, courseRatio=%s WHERE student_id=%s ",
                     [professor, morning, ratio, student_id],
                 )
             else:
                 cursor.execute(
-                    "INSERT INTO dsc3037.student_preference (student_id, instructor, morningclass, courseRatio) VALUES (%s, %s, %s, %s) ",
+                    "INSERT INTO swe3002.student_preference (student_id, instructor, morningclass, courseRatio) VALUES (%s, %s, %s, %s) ",
                     [student_id, professor, morning, ratio],
                 )
             return True
