@@ -60,8 +60,8 @@ class Migration(migrations.Migration):
                 ("remarks", models.CharField(blank=True, max_length=255, null=True)),
             ],
             options={
-                "db_table": "subject_major",
-                "managed": True,
+                "db_table": "major_subject",
+                "managed": False,
                 "unique_together": {("course_code", "semester")},
             },
         ),
@@ -113,8 +113,8 @@ class Migration(migrations.Migration):
                 ("semester", models.CharField(blank=True, max_length=255, null=True)),
             ],
             options={
-                "db_table": "subject_liberal arts",
-                "managed": True,
+                "db_table": "liberal arts_subject",
+                "managed": False,
                 "unique_together": {("course_code", "semester")},
             },
         ),
