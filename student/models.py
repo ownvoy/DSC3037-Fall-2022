@@ -13,7 +13,6 @@ class Academic(models.Model):
     double_major = models.CharField(max_length=100, null=True, blank=True)
     triple_major = models.CharField(max_length=100, null=True, blank=True)
 
-
 class Preference(models.Model):
     student_id = models.ForeignKey(Academic, on_delete=models.CASCADE, primary_key=True)
     instructor = models.CharField(max_length=50, null=True)
