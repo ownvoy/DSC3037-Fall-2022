@@ -35,7 +35,7 @@ WHERE course_title IN (SELECT course_title
                                      OR skku_subject.major = student_academic.double_major
                                      OR skku_subject.major = student_academic.triple_major
                                  )
-                           AND skku_subject.semester = "2022학년도 2학기");
+                           AND skku_subject.semester = "2024학년도 2학기");
 
 # 무슨 과목 들었는지 확인 할 수 있음
 SELECT distinct (course_title)
@@ -51,7 +51,7 @@ WHERE course_title IN (SELECT course_title
                                      OR skku_subject.major = student_academic.double_major
                                      OR skku_subject.major = student_academic.triple_major
                                  )
-                           AND skku_subject.semester = "2022학년도 2학기")
+                           AND skku_subject.semester = "2024학년도 2학기")
   AND (
             skku_subject.major = (SELECT major
                                   FROM student_academic
@@ -86,7 +86,7 @@ WHERE course_title IN (SELECT course_title
                                       OR skku_subject.major = student_academic.double_major
                                       OR skku_subject.major = student_academic.triple_major
                                   )
-                           AND skku_subject.semester = "2022학년도 2학기");
+                           AND skku_subject.semester = "2024학년도 2학기");
 
 SELECT *
 FROM skku_subject
@@ -109,7 +109,7 @@ having skku_subject.major = (SELECT major
                              FROM student_academic
                              WHERE student_id = 2018312342)
     OR skku_subject.major is NULL
-    AND skku_subject.semester = "2022학년도 2학기";
+    AND skku_subject.semester = "2024학년도 2학기";
 
 SELECT *
 FROM skku_subject
@@ -124,7 +124,7 @@ WHERE course_title NOT IN (SELECT course_title
                                          OR skku_subject.major = student_academic.double_major
                                          OR skku_subject.major = student_academic.triple_major
                                      ))
-  AND skku_subject.semester = "2022학년도 2학기"
+  AND skku_subject.semester = "2024학년도 2학기"
   AND (
             skku_subject.major = (SELECT major
                                   FROM student_academic
